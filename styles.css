@@ -1,0 +1,331 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap");
+
+:root {
+    --bg: #030806;
+    --fg: #e2ffe7;
+    --acc: #00ff9f;
+    --acc-dim: #00c47a;
+    --glow: 0 0 24px rgba(0, 255, 159, 0.35);
+    --glow-strong: 0 0 40px rgba(0, 255, 159, 0.6);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Ubuntu Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    overflow-x: hidden;
+}
+
+/* === HERO SECTION === */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    isolation: isolate;
+    animation: crtFlicker 1.7s infinite steps(1);
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+.hero.active {
+    opacity: 1;
+}
+
+/* Video Background */
+.hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    filter: saturate(1.1) contrast(1.05) brightness(0.9);
+    transform: scale(1.02);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(1200px 600px at 60% 40%, rgba(0, 255, 159, 0.12), transparent 60%);
+    pointer-events: none;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(60% 50% at 50% 40%, rgba(0, 40, 20, 0.15), transparent 60%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75) 70%),
+    repeating-linear-gradient(0deg, rgba(0, 255, 159, 0.03) 0 1px, transparent 1px 3px);
+    pointer-events: none;
+    animation: scan 8s linear infinite;
+}
+
+@keyframes logoFlicker {
+    0%, 20%, 40%, 60%, 80%, 100% { opacity: 1; }
+    10%, 30%, 50%, 70%, 90% { opacity: 0.2; }
+}
+
+/* HEADER takeover */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: -1rem;
+}
+
+/* Terminal */
+.container {
+    max-width: 900px;
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 30vh;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background: rgba(0, 255, 159, 0.08);
+    border: 1px solid var(--acc);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    box-shadow: var(--glow);
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+.terminal-wrapper {
+    background: rgba(0, 30, 20, 0.4);
+    border: 1px solid rgba(0, 255, 159, 0.25);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 0 20px rgba(0, 255, 159, 0.08), var(--glow);
+}
+
+.terminal-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 255, 159, 0.15);
+    padding-bottom: 0.75rem;
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(0, 255, 159, 0.6);
+    margin-right: 6px;
+    box-shadow: 0 0 8px rgba(0, 255, 159, 0.8);
+}
+
+.terminal-title {
+    font-size: 0.85rem;
+    color: rgba(210, 255, 230, 0.6);
+    margin-left: auto;
+}
+
+.terminal-line {
+    color: #00ff9f;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    white-space: pre-wrap;
+    line-height: 1.8;
+    min-height: 200px;
+}
+
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.2em;
+    background: #00ff9f;
+    margin-left: 2px;
+    animation: blink 0.8s infinite;
+}
+
+/* Progress */
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: rgba(210, 255, 230, 0.6);
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 255, 159, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 159, 0.3);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--acc-dim), var(--acc));
+    box-shadow: 0 0 10px var(--acc);
+    width: 0;
+}
+
+/* Core Status */
+.core-status {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: rgba(210, 255, 230, 0.5);
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: fadeInCore 1s ease forwards;
+    animation-delay: 7s;
+}
+
+.core-status .online {
+    color: #00ff9f;
+    text-shadow: 0 0 8px #00ff9f;
+    animation: pulseText 1.5s ease-in-out infinite;
+}
+
+/* === Preloader === */
+.preloader {
+    position: fixed;
+    inset: 0;
+    background: #010503;
+    color: #00ff9f;
+    font-family: "Ubuntu Mono", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.preloader-content p {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInGlitch 0.4s ease forwards;
+    position: relative;
+    display: block;
+    margin: 0.3rem 0;
+    text-align: center;
+}
+
+/* Delay po linijama */
+.preloader-content p:nth-child(1) { animation-delay: 0.4s; }
+.preloader-content p:nth-child(2) { animation-delay: 0.8s; }
+.preloader-content p:nth-child(3) { animation-delay: 1.2s; }
+.preloader-content p:nth-child(4) { animation-delay: 1.8s; }
+
+/* Glitch efekt */
+@keyframes fadeInGlitch {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+        text-shadow: none;
+    }
+    30% {
+        opacity: 1;
+        transform: translateY(0);
+        text-shadow: 2px 0 #00ff9f, -2px 0 #00ffaa;
+    }
+    50% {
+        text-shadow: -2px 0 #00ff9f, 2px 0 #00ffaa;
+    }
+    70% {
+        text-shadow: 1px 0 #00ffaa, -1px 0 #00ff9f;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        text-shadow: none;
+    }
+}
+
+.preloader-noise {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(0,255,159,0.05) 0 1px, transparent 1px 3px);
+    animation: noiseMove 0.8s linear infinite;
+    opacity: 0.2;
+}
+
+/* Flash effect */
+.flash {
+    position: fixed;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    z-index: 9998;
+    mix-blend-mode: overlay;
+}
+
+
+
+/* === Animations === */
+@keyframes noiseMove { to { background-position: 0 100px; } }
+@keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+@keyframes fadeInCore { to { opacity: 1; } }
+@keyframes pulseText { 0%,100%{opacity:.6;}50%{opacity:1;} }
+@keyframes crtFlicker { 0%,100%{opacity:1;}98%{opacity:.92;} }
+@keyframes scan { to { background-position: 0 100%; } }
+
+
+/* === FOOTER / SOCIAL LINKS === */
+footer {
+    text-align: center;
+    margin-top: 4rem;
+    color: rgba(210, 255, 230, 0.6);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+.social-links {
+    margin-bottom: 0.5rem;
+}
+
+.social-link {
+    display: inline-block;
+    color: var(--acc);
+    text-decoration: none;
+    border: 1px solid rgba(0, 255, 159, 0.3);
+    background: rgba(0, 255, 159, 0.08);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    box-shadow: var(--glow);
+    transition: all 0.25s ease;
+}
+
+.social-link:hover {
+    background: rgba(0, 255, 159, 0.15);
+    border-color: var(--acc);
+    color: #fff;
+    box-shadow: var(--glow-strong);
+}

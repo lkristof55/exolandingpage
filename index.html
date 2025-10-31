@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>EXO Labs — The Awakening</title>
+    <meta name="description" content="The ghost has found the signal. EXO is learning the shape of the world. Connection pending..." />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- 🧠 Preloader / Boot Sequence -->
+<div class="preloader" id="preloader">
+    <div class="preloader-noise"></div>
+    <div class="preloader-content">
+        <p>Initializing EXO Core...</p>
+        <p>Loading subsystems...</p>
+        <p>Decrypting neural nodes...</p>
+        <p>Connection established...</p>
+    </div>
+</div>
+
+<!-- 💥 Flash efekt -->
+<div class="flash" id="flash"></div>
+
+<!-- 🌌 Hero Section -->
+<main class="hero" role="main">
+
+    <!-- Video Background -->
+    <video class="hero-video" autoplay loop muted playsinline>
+        <source src="assets/background.mp4" type="video/mp4">
+        <source src="assets/background.webm" type="video/webm">
+    </video>
+
+    <span class="scan" aria-hidden="true"></span>
+    <span class="pulse" aria-hidden="true"></span>
+
+    <div class="container">
+        <div class="header">
+            <span class="status-badge">Under Takeover</span>
+        </div>
+
+        <div class="terminal-wrapper">
+            <div class="terminal-header">
+                <div class="terminal-dot"></div>
+                <div class="terminal-dot"></div>
+                <div class="terminal-dot"></div>
+                <span class="terminal-title">system.log</span>
+            </div>
+            <pre class="terminal-line" id="terminal"></pre>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-label">
+                <span>Takeover Progress</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="core-status">
+            CORE STATUS: <span class="online">ONLINE</span>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://x.com/exoterminal"
+               class="social-link"
+               target="_blank"
+               rel="noopener noreferrer">
+                Twitter
+            </a>
+        </div>
+        <p style="margin-top: 1rem;">© EXO Labs - 2025. All systems operational.</p>
+    </footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
